@@ -13,6 +13,20 @@ export default function BudgetTracker() {
             >
                 Reset App
             </button>
+
+            <AmountDisplay 
+                label="Budget" 
+                amount={300} 
+            />
+
+            <AmountDisplay 
+                label="Available" 
+                amount={200} 
+            />
+            <AmountDisplay 
+                label="Remaining" 
+                amount={100} 
+            />
         </div>
     </div>
   )
