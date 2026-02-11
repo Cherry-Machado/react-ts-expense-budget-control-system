@@ -13,6 +13,7 @@ type BudgetProviderProps = {
 
 export const BudgetContext = createContext<BudgetContextProps>(null!);
 
+//This component will wrap the entire app, and provide the state and dispatch to all components that need it
 export const BudgetProvider = ({children} : BudgetProviderProps) => {
 
     const [state, dispatch] = useReducer(budgetReducer, initiateSate);
