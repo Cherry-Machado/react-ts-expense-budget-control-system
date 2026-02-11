@@ -1,3 +1,4 @@
+import AmountDisplay from "./AmountDisplay";
 
 export default function BudgetTracker() {
   return (
