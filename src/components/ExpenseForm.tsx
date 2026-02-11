@@ -1,6 +1,13 @@
 // This component will be used to create a form for adding new expenses. It will be used in the ExpenseModal component.
 
 import { categories } from "../data/categories";
+import DatePicker from "react-date-picker";
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function ExpenseForm() {
   return (
@@ -69,6 +76,20 @@ export default function ExpenseForm() {
                 ))}
             </select>
         </div>
+
+         <div className="flex flex-col gap-2">
+            <label 
+                htmlFor="expenseAmount"
+                className="text-xl"
+            >
+                Expense Date:
+            </label>
+
+            <DatePicker
+                className="bg-slate-100 p-2 border-0"
+            />
+        </div>
+
         <input 
             type="submit" 
             className="bg-blue-600 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg"
