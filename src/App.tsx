@@ -4,11 +4,8 @@ import { useBudget } from "./hooks/useBudget";
 import BudgetTracker from "./components/BudgetTracker";
 
 function App() {
-
   const {state} = useBudget();
-
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget]);
-
 
   return (
     <>
