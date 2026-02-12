@@ -55,8 +55,12 @@ export default function ExpenseForm() {
             return;
         }
 
-        // Add the new expense to the global state
-        dispatch({ type: 'add-expense', payload: { expense } });
+        // Add or update the new expense to the global state
+        if(state.editingId) {
+            dispatch({ type: 'update-expense', payload: { expense: { id: state.editingId, ...expense } } });
+        } else {
+            dispatch({ type: 'add-expense', payload: { expense } });
+        }
 
         // Reset the form (The state)
         setExpense({
