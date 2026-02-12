@@ -7,6 +7,7 @@ import DatePicker from "react-date-picker";
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import ErrorMessage from "./ErrorMessage";
+import { useBudget } from "../hooks/useBudget";
 
 
 
@@ -19,6 +20,8 @@ export default function ExpenseForm() {
     });
 
     const [error, setError] = useState('');
+    const { dispatch } = useBudget();
+
 
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => {
         const { name, value } = e.target;
@@ -39,13 +42,16 @@ export default function ExpenseForm() {
   
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(expense);
 
         //vaidation
         if(Object.values(expense).some(value => value === '' || value === 0)) {
             setError('Please fill in all the fields');
             return;
         }
+
+        // Add the new expense to the global state
+        dispatch({ type: 'add-expense', payload: { expense } });
+        //dispatch({ type: 'close-modal' });
     }
 
 
