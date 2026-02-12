@@ -14,5 +14,3 @@ export function formatDate(dateStr: string) : string {
        day: 'numeric' };
     return new Intl.DateTimeFormat('en-US', options).format(dateObj);
 }
-
-// const .toLocaleDateString('en-US', options);
