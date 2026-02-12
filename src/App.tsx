@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import BudgetForm from "./components/BudgetForm"
 import { useBudget } from "./hooks/useBudget";
 import BudgetTracker from "./components/BudgetTracker";
@@ -9,7 +9,13 @@ function App() {
   const {state} = useBudget();
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget]);
 
-  return (
+  // This effect will run every time the state changes and it will save the budget and expenses to localStorage. This way, when the user refreshes the page, the data will be persisted.
+  useEffect(() => {
+    localStorage.setItem('budget', state.budget.toString());
+    localStorage.setItem('expenses', JSON.stringify(state.expenses));
+  }, [state]);
+  
+    return (
     <>
       <header className="bg-blue-600 py-8 max-h-72">
         <h1 className="uppercase text-center font-black text-4xl text-white">

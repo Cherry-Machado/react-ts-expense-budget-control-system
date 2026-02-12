@@ -18,10 +18,22 @@ export type BudgetState = {
     editingId?: Expense['id']
 }
 
+// This function will be used to get the initial budget from the local storage. If there is no budget in the local storage, it will return 0.
+const initialBudget = () : number => {
+    const localStorageBudget = localStorage.getItem('budget');
+    return localStorageBudget ? Number(localStorageBudget) : 0;
+}
+
+// This function will be used to get the expenses from the local storage. If there are no expenses in the local storage, it will return an empty array.
+const localStorageExpenses = () : Expense[] => {
+    const localStorageExpenses = localStorage.getItem('expenses');
+    return localStorageExpenses ? JSON.parse(localStorageExpenses) : [];
+}
+
 export const initiateSate : BudgetState = {
-    budget: 0,
+    budget: initialBudget(), // This will get the initial budget from the local storage when the app starts. If there is no budget in the local storage, it will start with a budget of 0.
     modal: false,
-    expenses: [],
+    expenses: localStorageExpenses(), // This will get the expenses from the local storage when the app starts. If there are no expenses in the local storage, it will start with an empty array.
     editingId: ''
 }
 
