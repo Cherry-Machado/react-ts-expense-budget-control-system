@@ -1,15 +1,23 @@
 // This component will be used to create a form for adding new expenses. It will be used in the ExpenseModal component.
 
+import { useState } from "react";
+import type { DraftExpense } from "../types";
 import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-type ValuePiece = Date | null;
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function ExpenseForm() {
+    const [expense, setExpense] = useState<DraftExpense>({
+        expenseName: '',
+        amount: 0,
+        category: '',
+        date: new Date(),
+    });
+  
+
   return (
     <form className="space-y-5">
         <legend
@@ -32,12 +40,13 @@ export default function ExpenseForm() {
                 placeholder="Add the expense name"
                 className="bg-slate-100 p-2"
                 name="expenseName"
+                value={expense.expenseName} // Controlled input
             />
         </div>
 
         <div className="flex flex-col gap-2">
             <label 
-                htmlFor="expenseAmount"
+                htmlFor="amount"
                 className="text-xl"
             >
                 Amount:
@@ -45,10 +54,11 @@ export default function ExpenseForm() {
 
             <input
                 type="number"
-                id="expenseAmount"
+                id="amount"
                 placeholder="Add the expense amount ex. 100"
                 className="bg-slate-100 p-2"
-                name="expenseAmount"
+                name="amount"
+                value={expense.amount}
             />
         </div>
 
@@ -62,8 +72,10 @@ export default function ExpenseForm() {
 
             <select
                 id="category"
+                placeholder="Select a category"
                 className="bg-slate-100 p-2"
                 name="category"
+                value={expense.category}
             >
                 <option value="">-- Select a category --</option>
                 {categories.map((category) => (
@@ -79,7 +91,7 @@ export default function ExpenseForm() {
 
          <div className="flex flex-col gap-2">
             <label 
-                htmlFor="expenseAmount"
+                htmlFor="date"
                 className="text-xl"
             >
                 Expense Date:
@@ -87,6 +99,7 @@ export default function ExpenseForm() {
 
             <DatePicker
                 className="bg-slate-100 p-2 border-0"
+                value={expense.date}
             />
         </div>
 
