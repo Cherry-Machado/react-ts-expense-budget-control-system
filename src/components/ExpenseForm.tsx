@@ -1,7 +1,7 @@
 // This component will be used to create a form for adding new expenses. It will be used in the ExpenseModal component.
 
-import { useState } from "react";
-import type { DraftExpense } from "../types";
+import { useState, type ChangeEvent } from "react";
+import type { DraftExpense, Value } from "../types";
 import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
 import 'react-date-picker/dist/DatePicker.css';
@@ -16,6 +16,23 @@ export default function ExpenseForm() {
         category: '',
         date: new Date(),
     });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => {
+        const { name, value } = e.target;
+        const isAmountField = ['amount'].includes(name);
+        setExpense({
+            ...expense,
+            [name]: isAmountField ? Number(value) : value
+        });
+    };
+
+
+    const handleChangeDate = (value : Value) => {
+       setExpense({
+            ...expense,
+            date: value
+       });
+    };
   
 
   return (
@@ -40,6 +57,7 @@ export default function ExpenseForm() {
                 placeholder="Add the expense name"
                 className="bg-slate-100 p-2"
                 name="expenseName"
+                onChange={handleChange}
                 value={expense.expenseName} // Controlled input
             />
         </div>
@@ -58,6 +76,7 @@ export default function ExpenseForm() {
                 placeholder="Add the expense amount ex. 100"
                 className="bg-slate-100 p-2"
                 name="amount"
+                onChange={handleChange}
                 value={expense.amount}
             />
         </div>
@@ -72,9 +91,9 @@ export default function ExpenseForm() {
 
             <select
                 id="category"
-                placeholder="Select a category"
                 className="bg-slate-100 p-2"
                 name="category"
+                onChange={handleChange}
                 value={expense.category}
             >
                 <option value="">-- Select a category --</option>
@@ -100,6 +119,7 @@ export default function ExpenseForm() {
             <DatePicker
                 className="bg-slate-100 p-2 border-0"
                 value={expense.date}
+                onChange={handleChangeDate}
             />
         </div>
 
