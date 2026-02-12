@@ -51,7 +51,14 @@ export default function ExpenseForm() {
 
         // Add the new expense to the global state
         dispatch({ type: 'add-expense', payload: { expense } });
-        //dispatch({ type: 'close-modal' });
+
+        // Reset the form (The state)
+        setExpense({
+            expenseName: '',
+            amount: 0,
+            category: '',
+            date: new Date(),
+        });
     }
 
 
