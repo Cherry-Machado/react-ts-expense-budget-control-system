@@ -26,7 +26,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
     const leadingActions = () => (
         <LeadingActions>
             <SwipeAction 
-                onClick={() => dispatch({ type: 'edit-expense', payload: { expense } })}
+                onClick={() => dispatch({ type: 'get-expense-by-id', payload: { id: expense.id } })}
                 destructive={false}
             >
                 Edit
@@ -49,7 +49,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
   return (
     <SwipeableList>
         <SwipeableListItem
-            maxSwipe={30}
+            maxSwipe={1}
             leadingActions={leadingActions()}
             trailingActions={trailingActions()}
         >

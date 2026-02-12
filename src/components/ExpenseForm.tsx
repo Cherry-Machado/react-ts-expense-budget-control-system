@@ -1,6 +1,6 @@
 // This component will be used to create a form for adding new expenses. It will be used in the ExpenseModal component.
 
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import type { DraftExpense, Value } from "../types";
 import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
@@ -20,8 +20,14 @@ export default function ExpenseForm() {
     });
 
     const [error, setError] = useState('');
-    const { dispatch } = useBudget();
+    const { dispatch, state } = useBudget();
 
+    useEffect(() => { // This effect will run when the component mounts and when the editingId in the global state changes. If there is an editingId, it will find the expense with that id and set it as the current expense in the form.
+        if(state.editingId) {
+            const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0];
+            setExpense(editingExpense);
+        }
+    }, [state.editingId]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => {
         const { name, value } = e.target;
