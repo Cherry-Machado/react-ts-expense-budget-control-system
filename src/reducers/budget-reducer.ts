@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import type { DraftExpense, Expense } from "../types"
+import type { Category,DraftExpense, Expense } from "../types"
 
 export type BudgetActions =
     { type: 'add-budget', payload: { budget: number} } |
@@ -9,7 +9,8 @@ export type BudgetActions =
     { type: 'remove-expense', payload: { id: Expense['id'] } } |
     { type: 'get-expense-by-id', payload: { id: Expense['id'] } } |
     { type: 'update-expense', payload: { expense: Expense } } |
-    { type: 'reset-app' }
+    { type: 'reset-app' } |
+    { type: 'add-filter-category', payload: { id: Category['id'] } } 
 
 
 export type BudgetState = {
@@ -17,6 +18,7 @@ export type BudgetState = {
     modal: boolean
     expenses: Expense[]
     editingId?: Expense['id']
+    currentCategory?: Category['id']
 }
 
 // This function will be used to get the initial budget from the local storage. If there is no budget in the local storage, it will return 0.
@@ -35,7 +37,8 @@ export const initiateSate : BudgetState = {
     budget: initialBudget(), // This will get the initial budget from the local storage when the app starts. If there is no budget in the local storage, it will start with a budget of 0.
     modal: false,
     expenses: localStorageExpenses(), // This will get the expenses from the local storage when the app starts. If there are no expenses in the local storage, it will start with an empty array.
-    editingId: ''
+    editingId: '',
+    currentCategory: ''
 }
 
 const createExpense = (draftExpense: DraftExpense) : Expense => {
@@ -111,6 +114,13 @@ export const budgetReducer = (
             ...state,
             budget: 0,
             expenses: []
+        }
+    }
+
+    if (action.type === 'add-filter-category') {
+        return {
+            ...state,
+            currentCategory: action.payload.id
         }
     }
 
