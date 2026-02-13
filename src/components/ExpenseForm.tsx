@@ -20,12 +20,14 @@ export default function ExpenseForm() {
     });
 
     const [error, setError] = useState('');
-    const { dispatch, state } = useBudget();
+    const [ previousAmount, setPreviousAmount] = useState(0); // This state will be used to store the previous amount of the expense being edited, so we can calculate the difference and update the remaining budget accordingly.]
+    const { dispatch, state, remainingBudget } = useBudget();
 
     useEffect(() => { // This effect will run when the component mounts and when the editingId in the global state changes. If there is an editingId, it will find the expense with that id and set it as the current expense in the form.
         if(state.editingId) {
             const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0];
             setExpense(editingExpense);
+            setPreviousAmount(editingExpense.amount); // Store the previous amount of the expense being edited
         }
     }, [state.editingId]);
 
@@ -55,6 +57,12 @@ export default function ExpenseForm() {
             return;
         }
 
+        // Check if the amount exceeds the remaining budget
+        if((expense.amount - previousAmount) > remainingBudget) {
+            setError('The amount exceeds the remaining budget');
+            return;
+        }
+
         // Add or update the new expense to the global state
         if(state.editingId) {
             dispatch({ type: 'update-expense', payload: { expense: { id: state.editingId, ...expense } } });
@@ -69,6 +77,7 @@ export default function ExpenseForm() {
             category: '',
             date: new Date(),
         });
+        setPreviousAmount(0); // Reset the previous amount
     }
 
 
