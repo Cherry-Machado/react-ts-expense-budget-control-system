@@ -8,7 +8,7 @@ The program was created to demonstrate my skills in React, Tailwinds CSS and Typ
 
 [Expense and Budget Control System Deployment](https://react-ts-expensebudget-control-system.netlify.app/)
 
-[Expense and Budget Control System Demo Video](https://github.com/Cherry-Machado)
+[Expense and Budget Control System Demo Video](https://www.youtube.com/watch?v=Rlc_fncNroI)
 
 # Development Environment
 
