@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import type { Category,DraftExpense, Expense } from "../types"
+import type { Category, DraftExpense, Expense } from "../types"
 
 export type BudgetActions =
     { type: 'add-budget', payload: { budget: number} } |
@@ -18,7 +18,7 @@ export type BudgetState = {
     modal: boolean
     expenses: Expense[]
     editingId?: Expense['id']
-    currentCategory?: Category['id']
+    currentCategory: Category['id']
 }
 
 // This function will be used to get the initial budget from the local storage. If there is no budget in the local storage, it will return 0.
