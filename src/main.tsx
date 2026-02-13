@@ -6,6 +6,7 @@ import { BudgetProvider } from './context/BudgetContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    {/* Wrap the App with BudgetProvider to make the context available globally */}
     <BudgetProvider>
       <App />
     </BudgetProvider>

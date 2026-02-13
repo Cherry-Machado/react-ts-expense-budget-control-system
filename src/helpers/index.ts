@@ -1,3 +1,4 @@
+// This helper is to format the currency 
 export function formatCurrency(amount: number) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -5,6 +6,7 @@ export function formatCurrency(amount: number) {
     }).format(amount);
 }
 
+// This helper is to format the date
 export function formatDate(dateStr: string) : string {
     const dateObj = new Date(dateStr);
     const options : Intl.DateTimeFormatOptions = {

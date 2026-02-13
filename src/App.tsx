@@ -8,6 +8,7 @@ import FilterByCategory from "./components/FilterByCategory";
 
 function App() {
   const {state} = useBudget();
+  // Check if the budget is valid (greater than 0) to determine which screen to show
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget]);
 
   // This effect will run every time the state changes and it will save the budget and expenses to localStorage. This way, when the user refreshes the page, the data will be persisted.
@@ -25,6 +26,7 @@ function App() {
       </header>
 
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10">
+        {/* Conditionally render BudgetTracker or BudgetForm based on whether a budget is set */}
         {isValidBudget ? <BudgetTracker /> : <BudgetForm /> }
       </div>
 

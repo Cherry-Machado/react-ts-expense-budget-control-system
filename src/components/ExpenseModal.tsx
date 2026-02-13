@@ -12,6 +12,7 @@ export default function ExpenseModal() {
 
   return (
     <>
+      {/* Button to open the modal */}
       <div className="fixed right-5 bottom-5 flex items-center justify-center">
         <button
           type="button"
@@ -21,6 +22,7 @@ export default function ExpenseModal() {
         </button>
       </div>
 
+      {/* Modal Transition and Dialog components from Headless UI */}
       <Transition appear show={state.modal} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => dispatch({type: 'close-modal'})}>
           <TransitionChild

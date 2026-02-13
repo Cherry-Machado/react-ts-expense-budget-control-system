@@ -1,3 +1,4 @@
+// These are the categories of the expenses
 import type { Category } from '../types';
 
 export const categories : Category[] = [

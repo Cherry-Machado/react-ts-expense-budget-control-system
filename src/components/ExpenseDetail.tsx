@@ -21,8 +21,10 @@ type ExpenseDetailProps = {
 
 export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
     const { dispatch } = useBudget();
+    // Retrieve category information based on the expense category ID
     const categoryInfo = useMemo(() => categories.filter(cat => cat.id === expense.category)[0], [expense]);
 
+    // Define actions for swiping right (Leading) - usually for editing
     const leadingActions = () => (
         <LeadingActions>
             <SwipeAction 
@@ -34,6 +36,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
         </LeadingActions>
     );
 
+    // Define actions for swiping left (Trailing) - usually for deleting
     const trailingActions = () => (
         <TrailingActions>
             <SwipeAction 

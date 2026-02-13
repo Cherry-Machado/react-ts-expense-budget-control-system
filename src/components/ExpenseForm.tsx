@@ -12,6 +12,7 @@ import { useBudget } from "../hooks/useBudget";
 
 
 export default function ExpenseForm() {
+    // Local state for the form fields
     const [expense, setExpense] = useState<DraftExpense>({
         expenseName: '',
         amount: 0,
@@ -23,6 +24,7 @@ export default function ExpenseForm() {
     const [ previousAmount, setPreviousAmount] = useState(0); // This state will be used to store the previous amount of the expense being edited, so we can calculate the difference and update the remaining budget accordingly.]
     const { dispatch, state, remainingBudget } = useBudget();
 
+    // Effect to populate the form when an expense is being edited
     useEffect(() => { // This effect will run when the component mounts and when the editingId in the global state changes. If there is an editingId, it will find the expense with that id and set it as the current expense in the form.
         if(state.editingId) {
             const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0];
@@ -31,6 +33,7 @@ export default function ExpenseForm() {
         }
     }, [state.editingId]);
 
+    // Handle changes in input fields
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => {
         const { name, value } = e.target;
         const isAmountField = ['amount'].includes(name);
@@ -41,6 +44,7 @@ export default function ExpenseForm() {
     };
 
 
+    // Handle date change from DatePicker
     const handleChangeDate = (value : Value) => {
        setExpense({
             ...expense,
@@ -51,13 +55,14 @@ export default function ExpenseForm() {
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        //vaidation
+        // Validation: Check if all fields are filled
         if(Object.values(expense).some(value => value === '' || value === 0)) {
             setError('Please fill in all the fields');
             return;
         }
 
         // Check if the amount exceeds the remaining budget
+        // If editing, we add back the previous amount to see if the new amount fits
         if((expense.amount - previousAmount) > remainingBudget) {
             setError('The amount exceeds the remaining budget');
             return;

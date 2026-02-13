@@ -5,11 +5,14 @@ import AmountDisplay from "./AmountDisplay";
 
 export default function BudgetTracker() {
   const { state, totalExpenses, remainingBudget, dispatch} = useBudget();
+  
+  // Calculate the percentage of the budget spent
   const percentage = +((totalExpenses / state.budget) * 100).toFixed(2);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="flex justify-center">
+            {/* Circular progress bar to visualize budget usage */}
             <CircularProgressbar
                 value={percentage}
                 styles={buildStyles({

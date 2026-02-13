@@ -6,8 +6,10 @@ import ExpenseDetail from "./ExpenseDetail";
 export default function ExpenseList() {
   const { state } = useBudget();
   
+  // Filter expenses if a category is selected, otherwise show all
   const filteredExpenses = state.currentCategory ? state.expenses.filter( expense => expense.category === state.currentCategory) : state.expenses;
 
+  // Check if there are any expenses to display
   const isEmpty = useMemo(() => filteredExpenses.length === 0, [filteredExpenses]);
 
   return (

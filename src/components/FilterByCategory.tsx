@@ -7,6 +7,7 @@ export default function FilterByCategory() {
 
     const { dispatch } = useBudget();
 
+    // Handle change event when a category is selected
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         dispatch({ type: 'add-filter-category', payload: {id: e.target.value}});
     }

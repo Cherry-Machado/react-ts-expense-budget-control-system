@@ -10,6 +10,7 @@ export default function BudgetForm() {
     setBudget(e.target.valueAsNumber);
   }
 
+  // Validate that the budget is a positive number
   const isValid = useMemo(() => {
     return isNaN(budget) || budget <= 0;
   }, [budget]);
@@ -47,4 +48,3 @@ export default function BudgetForm() {
     </form> 
   )
 }
-
